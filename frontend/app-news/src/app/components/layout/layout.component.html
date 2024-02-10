@@ -1,0 +1,45 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+      <h1>Noticias</h1>
+      <button mat-icon-button (click)="menuDrawer.toggle()">
+          <mat-icon>menu</mat-icon>
+      </button>
+      <span style="flex: 1 1 auto;"></span>
+      <button mat-button>
+        <mat-icon matSuffix>person</mat-icon>
+        Hola Bienvenido!!!!
+      </button>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-drawer-container autosize>
+
+  <mat-drawer #menuDrawer opened="true" mode="side" position="start">
+
+    <mat-list>
+
+      <mat-list-item>
+        <button mat-button [routerLink]="'/pages/new'">
+          <mat-icon matSuffix>feed</mat-icon>
+          Noticias
+        </button>
+      </mat-list-item>
+
+      <mat-list-item>
+        <button mat-button [routerLink]="'/pages/favorite'">
+          <mat-icon matSuffix>favorite</mat-icon>
+          Favoritos
+        </button>
+      </mat-list-item>
+
+    </mat-list>
+
+  </mat-drawer>
+
+  <mat-drawer-content>
+    <div style="height: 90vh;">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-drawer-content>
+
+</mat-drawer-container>

@@ -1,0 +1,8 @@
+{
+  "/api.spaceflightnewsapi.net/*" : {
+    "target": "https://api.spaceflightnewsapi.net/v4/articles/",
+    "secure": false,
+    "logLevel": "debug"
+  }
+}
+

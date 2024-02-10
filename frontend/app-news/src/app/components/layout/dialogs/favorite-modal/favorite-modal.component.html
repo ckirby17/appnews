@@ -1,0 +1,43 @@
+<h2 mat-dialog-title style="background-color: #3f51b5; color: #ffffff;">Editar Favorito</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="formFavorite">
+
+    <mat-grid-list cols="1" rowHeight="80px">
+
+      <mat-grid-tile>
+        <mat-form-field appearance="fill">
+          <mat-label>Título</mat-label>
+          <input matInput autocomplete="off" formControlName="title" required="true">
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="fill">
+          <mat-label>Descripción</mat-label>
+          <input matInput autocomplete="off" formControlName="description" required="true">
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="fill">
+          <mat-label>Resumen</mat-label>
+          <textarea matInput formControlName="summary" required="true" [rows]="'2'"></textarea>
+        </mat-form-field>
+      </mat-grid-tile>
+
+    </mat-grid-list>
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+  <button mat-raised-button mat-dialog-close color="warn">
+    Cancelar
+    <mat-icon matSuffix>cancel</mat-icon>
+  </button>
+  <button mat-raised-button color="primary" (click)="onSave()" [disabled]="formFavorite.invalid">
+    Guardar
+    <mat-icon matSuffix>save</mat-icon>
+  </button>
+</mat-dialog-actions>

@@ -1,0 +1,18 @@
+<h1 style="margin: 20px 0 0 40px;">Noticias</h1>
+
+<mat-card style="margin: 20px 40px 40px 40px;">
+
+  <mat-card-content class="card-content">
+
+    <div *ngIf="listNews.length > 0">
+      <app-news-table [dataSourceHeader]="newHeader" (showLoading)="onLoading($event)">
+      </app-news-table>
+    </div>
+
+  </mat-card-content>
+
+  <mat-card-footer>
+    <mat-progress-bar *ngIf="showLoading" mode="indeterminate" [value]="" [bufferValue]="" color="primary"></mat-progress-bar>
+  </mat-card-footer>
+
+</mat-card>

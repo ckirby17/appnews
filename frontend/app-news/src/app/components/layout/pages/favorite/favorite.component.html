@@ -1,0 +1,17 @@
+<h1 style="margin: 20px 0 0 40px;">Favoritos</h1>
+
+<mat-card style="margin: 20px 40px 40px 40px;">
+
+  <mat-card-content class="card-content">
+
+    <div *ngIf="listFavorite.length > 0">
+      <app-favorite-table [dataSourceHeader]="favoriteHeader" (showLoading)="onLoading($event)">
+      </app-favorite-table>
+    </div>
+
+  </mat-card-content>
+
+  <mat-card-footer>
+    <mat-progress-bar *ngIf="showLoading" mode="indeterminate" [value]="" [bufferValue]="" color="primary"></mat-progress-bar>
+  </mat-card-footer>
+</mat-card>

@@ -116,7 +116,6 @@ export class NewsTableComponent implements OnInit, AfterViewInit {
           this._filterTable(value);
         }
         else{
-          this._sweetService.showInfo('Información!!', 'Datos no encontrados');
           this.length = 0;
           this.dataTableSource.data = [];
         }

@@ -71,13 +71,12 @@ export class FavoriteTableComponent implements OnInit, AfterViewInit {
         if(resp.success === 1){
           const dataHeader = resp.data as FavoriteHeader;
           this.dataTableSource.data = dataHeader.listFavorites;
-          this.length = dataHeader.count;
+          this.length = dataHeader.count * this.pageSize;
           this._filterTable(value);
         }
         else{
           this.length = 0;
           this.dataTableSource.data = [];
-          this._sweetService.showInfo('Información!!', resp.message);
         }
       },
       complete: () => {

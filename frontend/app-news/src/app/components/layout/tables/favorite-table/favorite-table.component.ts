@@ -20,7 +20,12 @@ export class FavoriteTableComponent implements OnInit, AfterViewInit {
 
   columnsTable: string[] = ['title', 'description', 'summary', 'publishedAt', 'actions'];
 
-  @Input() dataSourceHeader!: FavoriteHeader;
+  @Input() dataSourceHeader: FavoriteHeader = {
+    count: 0,
+    listFavorites: []
+  };
+
+
   @Output() showLoading: EventEmitter<boolean> = new EventEmitter();
 
   length:number = 0;
@@ -31,16 +36,13 @@ export class FavoriteTableComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginationTable!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  private listFavoriteInit: FavoriteList[] = [];
-  dataTableSource!: MatTableDataSource<FavoriteList>;
+  dataTableSource: MatTableDataSource<FavoriteList> = new MatTableDataSource<FavoriteList>([]);
 
   constructor(
     private dialog: MatDialog,
     private _favoriteService: FavoriteService,
     private _sweetService: SweetAlertService
-  ){
-    this.dataTableSource = new MatTableDataSource<FavoriteList>(this.listFavoriteInit);
-  }
+  ){ }
 
   ngOnInit(): void {
     this._configInitTablePaginator();

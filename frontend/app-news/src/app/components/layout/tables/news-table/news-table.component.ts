@@ -27,23 +27,26 @@ export class NewsTableComponent implements OnInit, AfterViewInit {
   isLoading: boolean = true;
 
 
-  @Input() dataSourceHeader!: NewHeader;
+  @Input() dataSourceHeader: NewHeader = {
+    count: 0,
+    next: '',
+    previous: '',
+    results: []
+  };
+
   @Output() showLoading: EventEmitter<boolean> = new EventEmitter();
 
   @ViewChild(MatPaginator) paginationTable!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  private listNewsInit: NewList[] = [];
-  dataTableSource!: MatTableDataSource<NewList>;
+  dataTableSource: MatTableDataSource<NewList> = new MatTableDataSource<NewList>([]);
 
   constructor(
     private _newsService: NewService,
     private _favoriteService: FavoriteService,
     private _sweetService: SweetAlertService,
     private datePipe: DatePipe
-  ){
-    this.dataTableSource = new MatTableDataSource<NewList>(this.listNewsInit);
-  }
+  ){  }
 
   ngOnInit(): void {
     this._configInitTablePaginator();

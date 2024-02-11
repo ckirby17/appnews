@@ -54,7 +54,7 @@ export class FavoriteModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.formFavorite.setValue({
+    this.formFavorite.patchValue({
       title: this.dataEdit.title,
       description: this.dataEdit.description,
       summary: this.dataEdit.summary,

@@ -8,11 +8,13 @@ import { NewService } from 'src/app/services/external-api/new.service';
 import { SweetAlertService } from 'src/app/services/alert/sweet-alert.service';
 import { FavoriteCreate } from 'src/app/interfaces/favorite-create';
 import { FavoriteService } from 'src/app/services/api/favorite.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-news-table',
   templateUrl: './news-table.component.html',
-  styleUrls: ['./news-table.component.scss']
+  styleUrls: ['./news-table.component.scss'],
+  providers: [DatePipe]
 })
 export class NewsTableComponent implements OnInit, AfterViewInit {
 
@@ -37,7 +39,8 @@ export class NewsTableComponent implements OnInit, AfterViewInit {
   constructor(
     private _newsService: NewService,
     private _favoriteService: FavoriteService,
-    private _sweetService: SweetAlertService
+    private _sweetService: SweetAlertService,
+    private datePipe: DatePipe
   ){
     this.dataTableSource = new MatTableDataSource<NewList>(this.listNewsInit);
   }
@@ -156,7 +159,8 @@ export class NewsTableComponent implements OnInit, AfterViewInit {
         let dataFavorite: FavoriteCreate = {
           title: data.title,
           description: data.news_site,
-          summary: data.summary
+          summary: data.summary,
+          publishedAtText: this.datePipe.transform(data.published_at, 'yyyy-MM-dd') + ' ' + new Date(data.published_at).toLocaleTimeString('es-CL')
         }
 
         this._favoriteService.create(dataFavorite).subscribe({

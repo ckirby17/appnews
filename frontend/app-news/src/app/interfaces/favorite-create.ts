@@ -1,5 +1,6 @@
 export interface FavoriteCreate {
   title: string,
   description: string,
-  summary: string
+  summary: string,
+  publishedAtText: string
 }

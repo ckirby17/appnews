@@ -11,7 +11,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class FavoriteHeaderDto {
     private Integer count;
-    private String next;
-    private String previous;
     private List<FavoriteListDto> listFavorites;
 }

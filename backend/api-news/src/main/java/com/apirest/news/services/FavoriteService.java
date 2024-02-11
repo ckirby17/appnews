@@ -1,6 +1,7 @@
 package com.apirest.news.services;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -91,20 +92,9 @@ public class FavoriteService {
                 .map(favorite -> _modelMapper.map(favorite, FavoriteListDto.class))
                 .collect(Collectors.toList());
 
-                var totalPages = pageModelDb.getTotalPages();
-                var lastPage = totalPages - 1;
-                var currentPage = pageModelDb.getNumber();
-                var size = pageModelDb.getSize();
-                var previousPage = currentPage - 1 < 0 ? currentPage : currentPage - 1;
-                var nextPage = lastPage == currentPage ? currentPage : currentPage + 1;
-                var urlPrevious = "?page=" + previousPage + "&size=" + size +"&sort=publishedAt,desc";
-                var urlNext = "?page=" + nextPage + "&size=" + size + "&sort=publishedAt,desc";
-
                 FavoriteHeaderDto modelHeaderDto = new FavoriteHeaderDto();                
                 modelHeaderDto.setListFavorites(listModelDto);
-                modelHeaderDto.setCount(totalPages);
-                modelHeaderDto.setPrevious(urlPrevious);
-                modelHeaderDto.setNext((urlNext));
+                modelHeaderDto.setCount(pageModelDb.getTotalPages());
 
                 resp.data = modelHeaderDto;
                 resp.success = 1;
@@ -166,11 +156,17 @@ public class FavoriteService {
                 return resp;
             }
 
-            if(model.getPublishedAt() == null){
-                model.setPublishedAt(LocalDateTime.now());
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            LocalDateTime publishAt;
+            if(model.getPublishedAtText().isEmpty()){
+                publishAt = LocalDateTime.now();
+            }
+            else{
+                publishAt = LocalDateTime.parse(model.getPublishedAtText(), formatter);
             }
 
             FavoriteModel modelDb = _modelMapper.map(model, FavoriteModel.class);
+            modelDb.setPublishedAt(publishAt);
             modelDb = _favoriteRepository.save(modelDb);
 
             resp.success = 1;
@@ -215,6 +211,12 @@ public class FavoriteService {
                 return resp;
             }
 
+            if(modelDto.getPublishedAtText().isEmpty()){
+                resp.message = "Fecha publicación es requerido";
+                resp.code = HttpStatus.NOT_ACCEPTABLE.toString();
+                return resp;
+            }
+
             Optional<FavoriteModel> modelDb = _favoriteRepository.findById(modelDto.getId());
 
             if(modelDb.isEmpty()){
@@ -223,8 +225,11 @@ public class FavoriteService {
                 return resp;
             }
 
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            LocalDateTime publishAt = LocalDateTime.parse(modelDto.getPublishedAtText(), formatter);
+
             FavoriteModel modelEndDb = _modelMapper.map(modelDto, FavoriteModel.class);
-            modelEndDb.setPublishedAt(modelDb.get().getPublishedAt());
+            modelEndDb.setPublishedAt(publishAt);
 
             resp.success = 1;
             resp.code = HttpStatus.OK.toString();

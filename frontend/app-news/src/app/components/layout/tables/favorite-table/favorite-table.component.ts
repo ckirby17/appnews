@@ -62,7 +62,7 @@ export class FavoriteTableComponent implements OnInit, AfterViewInit {
     this.showLoading.emit(true);
     this.isLoading = true;
     const filterValue = (event.target as HTMLInputElement).value;
-    this.getListFavoriteSearchPageable(this.pageIndex, this.pageSize, filterValue);
+    this.getListFavoriteSearchPageable(this.pageIndex, this.pageSize, filterValue.trim());
   }
 
   getListFavoriteSearchPageable(page: number, size: number, value: string){
@@ -92,7 +92,7 @@ export class FavoriteTableComponent implements OnInit, AfterViewInit {
   }
 
   private _filterTable(filterValue: string){
-    this.dataTableSource.filter = filterValue.trim().toLowerCase();
+    this.dataTableSource.filter = filterValue;
 
     if (this.dataTableSource.paginator) {
       this.dataTableSource.paginator.firstPage();
@@ -137,7 +137,8 @@ export class FavoriteTableComponent implements OnInit, AfterViewInit {
       id: data.id,
       title: data.title,
       description: data.description,
-      summary: data.summary
+      summary: data.summary,
+      publishedAtText: data.publishedAt.toString()
     };
 
     this.dialog.open(FavoriteModalComponent, {

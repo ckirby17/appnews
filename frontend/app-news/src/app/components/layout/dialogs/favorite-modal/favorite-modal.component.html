@@ -26,6 +26,16 @@
         </mat-form-field>
       </mat-grid-tile>
 
+      <mat-grid-tile>
+        <mat-form-field appearance="fill">
+          <mat-label>Fecha Publicación</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="publishedAt">
+          <mat-hint>DD-MM-YYYY HH:MM:SS</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </mat-grid-tile>
+
     </mat-grid-list>
 
   </form>

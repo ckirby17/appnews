@@ -64,7 +64,7 @@ export class FavoriteTableComponent implements OnInit, AfterViewInit {
     this.showLoading.emit(true);
     this.isLoading = true;
     const filterValue = (event.target as HTMLInputElement).value;
-    this.getListFavoriteSearchPageable(this.pageIndex, this.pageSize, filterValue.trim());
+    this.getListFavoriteSearchPageable(this.pageIndex, this.pageSize, filterValue.trim().toLowerCase());
   }
 
   getListFavoriteSearchPageable(page: number, size: number, value: string){

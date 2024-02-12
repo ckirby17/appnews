@@ -78,7 +78,7 @@ public class FavoriteService {
                 pageModelDb = _favoriteRepository.findAll(PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), pageable.getSort()));
             }
             else{
-                pageModelDb = _favoriteRepository.findByTitleContaining(title, PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), pageable.getSort()));
+                pageModelDb = _favoriteRepository.findByTitleContainingIgnoreCase(title.trim().toLowerCase(), PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), pageable.getSort()));
             }
             
 

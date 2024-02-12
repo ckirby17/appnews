@@ -8,4 +8,6 @@ import com.apirest.news.models.FavoriteModel;
 
 public interface FavoriteRepository extends JpaRepository<FavoriteModel, Long> {
     Page<FavoriteModel> findByTitleContaining(String title, Pageable pageable);
+
+    Page<FavoriteModel> findByTitleContainingIgnoreCase(String title, Pageable pageable);
 }
